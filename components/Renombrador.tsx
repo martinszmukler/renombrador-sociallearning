@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef, useState, useEffect, useCallback } from 'react'
-import { createClient } from '@/lib/supabase/client'
 
 declare global {
   interface Window {
@@ -26,8 +25,7 @@ interface ProcessedFile {
   status: 'ok' | 'warn' | 'err'
 }
 
-export default function Renombrador({ userEmail }: { userEmail: string }) {
-  const supabase = createClient()
+export default function Renombrador() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [prefijo, setPrefijo] = useState('haberes')
@@ -162,11 +160,6 @@ export default function Renombrador({ userEmail }: { userEmail: string }) {
     URL.revokeObjectURL(a.href)
   }
 
-  async function handleLogout() {
-    await supabase.auth.signOut()
-    window.location.href = '/login'
-  }
-
   const exitosos = results?.filter(r => r.status === 'ok').length ?? 0
   const sinCuil = results ? results.length - exitosos : 0
 
@@ -175,20 +168,12 @@ export default function Renombrador({ userEmail }: { userEmail: string }) {
       <div className="max-w-[640px] mx-auto flex flex-col gap-6">
 
         {/* Header */}
-        <header className="flex items-start justify-between">
-          <div className="flex flex-col gap-1">
-            <h1 className="text-2xl font-semibold text-[#213478]">Renombrador de Recibos</h1>
-            <p className="text-sm text-[#636271]">
-              Extrae el CUIL de cada PDF y renombra los archivos automáticamente.
-              Todo se procesa en tu computadora, sin subir nada a internet.
-            </p>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="ml-4 mt-1 text-xs text-[#636271] hover:text-[#213478] whitespace-nowrap"
-          >
-            {userEmail} · Salir
-          </button>
+        <header className="flex flex-col gap-1">
+          <h1 className="text-2xl font-semibold text-[#213478]">Renombrador de Recibos</h1>
+          <p className="text-sm text-[#636271]">
+            Extrae el CUIL de cada PDF y renombra los archivos automáticamente.
+            Todo se procesa en tu computadora, sin subir nada a internet.
+          </p>
         </header>
 
         {/* Paso 1 */}
