@@ -9,8 +9,8 @@ declare global {
   }
 }
 
-const CUIL_X0 = 325.19, CUIL_Y0 = 139.50
-const CUIL_X1 = 376.60, CUIL_Y1 = 150.49
+const CUIL_X0 = 390.00, CUIL_Y0 = 182.00
+const CUIL_X1 = 475.00, CUIL_Y1 = 198.00
 const TOLERANCE = 6
 
 type ResultItem =
